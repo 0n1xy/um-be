@@ -24,22 +24,16 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('password123'),
                 'isAdmin' => 0, // Admin role
             ],
-            ['email' => 'user@example.com'],
-            [
-                'name' => 'User',
-                'password' => Hash::make('password123'),
-                'isAdmin' => 1, // User role
-            ]
         );
 
         // ✅ Create 19 Regular Users
-        // for ($i = 1; $i <= 19; $i++) {
-        //     User::create([
-        //         'name' => $faker->name,
-        //         'email' => $faker->unique()->safeEmail,
-        //         'password' => Hash::make($faker->internet->password()),
-        //         'isAdmin' => 1, // Regular user
-        //     ]);
-        // }
+        for ($i = 1; $i <= 19; $i++) {
+            User::create([
+                'name' => $faker->name,
+                'email' => $faker->unique()->safeEmail,
+                'password' => Hash::make($faker->internet->password()),
+                'isAdmin' => 1, // Regular user
+            ]);
+        }
     }
 }
