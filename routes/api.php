@@ -24,6 +24,6 @@ Route::group([
     'middleware' => 'jwt.custom',
     'prefix' => 'auth'
 ], function () {
-    Route::get('/me', [UserController::class, 'me']);
+    Route::get('/me', [AuthController::class, 'me']);
     Route::post('/logout', [UserController::class, 'logout']);
 });
