@@ -53,11 +53,11 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         $validatedData = $request->validate([
-            "name" => "sometimes|string|max:255",
+            "name" => "sometimes|string|max:255",   
             "email" => "sometimes|string|email|max:255|unique:users,email,$id",
-            "dateOfBirth" => "sometimes|date",
-            "isAdmin" => "sometimes|boolean",
-            "password" => "sometimes|string|min:6",
+            "dateOfBirth" => "sometimes|date", 
+            "isAdmin" => "sometimes|integer", 
+            "password" => "sometimes|string|min:6", 
         ]);
 
         if (!empty($validatedData["password"])) {
