@@ -14,32 +14,34 @@ class UserController extends Controller
      * Lấy danh sách người dùng với tìm kiếm và phân trang
      */
     public function getAllUserData(Request $request)
-{
-    // Lấy số user mỗi trang (default: 20, max: 50)
-    $perPage = (int) $request->query("per_page", 20);
-    $perPage = $perPage > 50 ? 50 : $perPage; // Giới hạn tối đa 50 user/trang
+    {
+        // Lấy số user mỗi trang (default: 20, max: 50)
+        $perPage = (int) $request->query("per_page", 20);
+        $perPage = $perPage > 50 ? 50 : $perPage; // Giới hạn tối đa 50 user/trang
 
-    $users = User::query()
-        ->when($request->query("search"), function ($query, $search) {
-            $query->where("name", "LIKE", "%$search%")
-                  ->orWhere("email", "LIKE", "%$search%");
-        })
-        ->paginate($perPage);
+        $users = User::query()
+            ->when($request->query("search"), function ($query, $search) {
+                $query->where("name", "LIKE", "%$search%")
+                    ->orWhere("email", "LIKE", "%$search%");
+            })
+            ->paginate($perPage);
 
-    return response()->json([
-        "users" => $users->map(fn($user) => [
-            "id" => $user->id,
-            "name" => $user->name,
-            "email" => $user->email,
-            "dateOfBirth" => $user->dateOfBirth ? $user->dateOfBirth->format("Y-m-d") : null, // Format đúng
-            "isAdmin" => (int) $user->isAdmin, // Ép thành số nguyên
-        ]),
-        "total_users" => $users->total(), // Tổng số user
-        "current_page" => $users->currentPage(), // Trang hiện tại
-        "total_pages" => $users->lastPage(), // Tổng số trang
-        "per_page" => $users->perPage(), // Số user mỗi trang
-    ]);
-}
+        return response()->json([
+            "users" => $users->map(fn($user) => [
+                "id" => $user->id,
+                "name" => $user->name,
+                "email" => $user->email,
+                "dateOfBirth" => $user->dateOfBirth 
+                    ? \Carbon\Carbon::parse($user->dateOfBirth)->format("Y-m-d") 
+                    : null,
+                "isAdmin" => (int) $user->isAdmin,
+            ]),
+            "total_users" => $users->total(),
+            "current_page" => $users->currentPage(),
+            "total_pages" => $users->lastPage(),
+            "per_page" => $users->perPage(),
+]);
+    }
 
 
     /**
