@@ -26,7 +26,7 @@ class UserSeeder extends Seeder
         // ✅ Generate 30 users with unique email and names
         $users = [];
 
-        for ($i = 1; $i <= 30; $i++) {
+        for ($i = 1; $i <= 20; $i++) {
             $users[] = [
                 'name' => "User $i " . ["Smith", "Nguyen", "Tran", "Johnson", "Brown", "Lee", "Garcia", "Martinez", "Davis", "Hernandez"][array_rand(["Smith", "Nguyen", "Tran", "Johnson", "Brown", "Lee", "Garcia", "Martinez", "Davis", "Hernandez"])],
                 'email' => "user$i" . ["@mail.com", "@test.com", "@example.com", "@domain.com"][array_rand(["@mail.com", "@test.com", "@example.com", "@domain.com"])],
