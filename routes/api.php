@@ -6,9 +6,8 @@ use App\Http\Controllers\AuthController;
 
     
 Route::prefix('auth')->group(function () {
-    Route::post('/login', [UserController::class, 'login']);
-    Route::post('/register', [UserController::class, 'register']);
-    Route::post('/refresh', [UserController::class, 'refresh']);
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/register', [AuthController::class, 'register']);
 });
 
 Route::group([
