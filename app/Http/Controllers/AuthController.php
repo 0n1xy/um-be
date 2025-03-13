@@ -6,6 +6,9 @@ use \App\Services\UserService;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Database\QueryException;
 class AuthController
 {
     /**

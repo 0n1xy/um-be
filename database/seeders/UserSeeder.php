@@ -13,39 +13,28 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // ✅ Ensure there is always ONE Admin user
+        // ✅ Ensure an admin user exists
         User::updateOrCreate(
-            ['email' => 'admin@example.com'], 
+            ['email' => 'admin@example.com'],
             [
                 'name' => 'Admin User',
                 'password' => Hash::make('password123'),
                 'isAdmin' => 0, // Admin role
-            ],
+            ]
         );
 
-        // ✅ Create fixed users without Faker
-        $users = [
-            ['name' => 'User 1', 'email' => 'user1@example.com', 'password' => 'userpassword1'],
-            ['name' => 'User 2', 'email' => 'user2@example.com', 'password' => 'userpassword2'],
-            ['name' => 'User 3', 'email' => 'user3@example.com', 'password' => 'userpassword3'],
-            ['name' => 'User 4', 'email' => 'user4@example.com', 'password' => 'userpassword4'],
-            ['name' => 'User 5', 'email' => 'user5@example.com', 'password' => 'userpassword5'],
-            ['name' => 'User 6', 'email' => 'user6@example.com', 'password' => 'userpassword6'],
-            ['name' => 'User 7', 'email' => 'user7@example.com', 'password' => 'userpassword7'],
-            ['name' => 'User 8', 'email' => 'user8@example.com', 'password' => 'userpassword8'],
-            ['name' => 'User 9', 'email' => 'user9@example.com', 'password' => 'userpassword9'],
-            ['name' => 'User 10', 'email' => 'user10@example.com', 'password' => 'userpassword10'],
-        ];
+        // ✅ Generate 30 users with unique email and names
+        $users = [];
 
-        foreach ($users as $user) {
-            User::updateOrCreate(
-                ['email' => $user['email']], 
-                [
-                    'name' => $user['name'],
-                    'password' => Hash::make($user['password']),
-                    'isAdmin' => 1, // Regular user
-                ]
-            );
+        for ($i = 1; $i <= 30; $i++) {
+            $users[] = [
+                'name' => "User $i " . ["Smith", "Nguyen", "Tran", "Johnson", "Brown", "Lee", "Garcia", "Martinez", "Davis", "Hernandez"][array_rand(["Smith", "Nguyen", "Tran", "Johnson", "Brown", "Lee", "Garcia", "Martinez", "Davis", "Hernandez"])],
+                'email' => "user$i" . ["@mail.com", "@test.com", "@example.com", "@domain.com"][array_rand(["@mail.com", "@test.com", "@example.com", "@domain.com"])],
+                'password' => Hash::make("userpassword$i"),
+                'isAdmin' => rand(0, 1), // Randomly assign role
+            ];
         }
+
+        User::insert($users);
     }
 }
