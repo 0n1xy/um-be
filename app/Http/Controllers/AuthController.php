@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use \App\Services\UserService;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use App\Models\User;
 class AuthController
 {
     /**
