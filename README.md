@@ -8,6 +8,7 @@
 -   [Configuration](#configuration)
 -   [Running the Application](#running-the-application)
 -   [API Endpoints](#api-endpoints)
+-   [Demo & Deployment](#demo--deployment)
 -   [Additional Notes](#additional-notes)
 -   [License](#license)
 
@@ -27,7 +28,7 @@
     cp .env.example .env
     ```
 4. **Cấu hình file `.env`:**  
-   Cập nhật các thông số như database, mail, … theo môi trường.
+   Cập nhật các thông số như database, mail, … theo môi trường của bạn.
 5. **Generate key cho ứng dụng:**
     ```bash
     php artisan key:generate
@@ -35,10 +36,6 @@
 6. **Chạy migration để tạo bảng:**
     ```bash
     php artisan migrate
-    ```
-7. **Chạy seed để tạo dữ liệu ảo:**
-    ```bash
-    php artisan db:seed
     ```
 
 ## Configuration
@@ -99,6 +96,22 @@ php artisan route:list
 -   **POST /api/auth/register**  
     Đăng ký người dùng mới.  
     _Controller_: `AuthController@register`
+
+## Demo & Deployment
+
+Ứng dụng đã được triển khai tại:  
+🔗 [Dashboard URL](https://um-fe.vercel.app/dashboard)
+
+### Test Accounts:
+
+-   **Admin Account**
+
+    -   Email: `admin@example.com`
+    -   Password: `123456789`
+
+-   **User Account**
+    -   Email: `user5@example.com`
+    -   Password: `userpassword5`
 
 ## Additional Notes
 
