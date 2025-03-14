@@ -10,14 +10,10 @@ use Illuminate\Database\QueryException;
 
 class UserController extends Controller
 {
-    /**
-     * Lấy danh sách người dùng với tìm kiếm và phân trang
-     */
     public function getAllUserData(Request $request)
     {
-        // Lấy số user mỗi trang (default: 20, max: 50)
         $perPage = (int) $request->query("per_page", 20);
-        $perPage = $perPage > 50 ? 50 : $perPage; // Giới hạn tối đa 50 user/trang
+        $perPage = $perPage > 50 ? 50 : $perPage;
 
         $users = User::query()
             ->when($request->query("search"), function ($query, $search) {
@@ -40,7 +36,7 @@ class UserController extends Controller
             "current_page" => $users->currentPage(),
             "total_pages" => $users->lastPage(),
             "per_page" => $users->perPage(),
-]);
+        ]);
     }
 
 
