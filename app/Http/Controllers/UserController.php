@@ -81,4 +81,31 @@ class UserController extends Controller
         User::findOrFail($id)->delete();
         return response()->json(["message" => "User deleted successfully"]);
     }
+
+    public function updateMe(Request $request)
+    {
+        $user = auth()->user();
+
+        if (!$user) {
+            return response()->json(["error" => "Unauthorized"], 401);
+        }
+
+        $validatedData = $request->validate([
+            "name" => "sometimes|string|max:255",   
+            "email" => "sometimes|string|email|max:255|unique:users,email," . $user->id,
+            "dateOfBirth" => "sometimes|date", 
+            "password" => "sometimes|string|min:6", 
+        ]);
+
+        if (!empty($validatedData["password"])) {
+            $validatedData["password"] = bcrypt($validatedData["password"]);
+        }
+
+        try {
+            $user->update($validatedData);
+            return response()->json(["message" => "User updated successfully"]);
+        } catch (\Exception $e) {
+            return response()->json(["error" => $e->getMessage()], 500);
+        }
+    }
 }

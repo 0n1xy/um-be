@@ -17,6 +17,7 @@ class AuthMiddleware
     {
         try {
             $user = JWTAuth::parseToken()->authenticate();
+            \Log::info("Authenticated user:", [$user]); // Debug
             if (!$user) abort(Response::HTTP_UNAUTHORIZED, 'User not found in token');
 
             // Kiểm tra vai trò nếu middleware yêu cầu

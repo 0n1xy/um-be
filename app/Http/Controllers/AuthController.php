@@ -99,8 +99,4 @@ class AuthController
         return JWTAuth::fromUser($user);
     }
 
-
-
-
-
 }
